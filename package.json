@@ -1,0 +1,29 @@
+{
+  "name": "hapi-seed",
+  "version": "0.0.0",
+  "description": "Seed project for hapi with mongo",
+  "main": "start.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Pencroff/hapi-seed.git"
+  },
+  "keywords": [
+    "hapi",
+    "seed",
+    "mongo"
+  ],
+  "author": "Pencroff",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pencroff/hapi-seed/issues"
+  },
+  "homepage": "https://github.com/Pencroff/hapi-seed",
+  "dependencies": {
+    "hapi": "~7.5.2",
+    "good-console": "^2.1.0",
+    "good": "^4.0.2"
+  }
+}
