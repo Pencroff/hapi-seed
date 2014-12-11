@@ -1,0 +1,21 @@
+//- Created by Pencroff on 26.10.2014.
+extends layout
+block content
+    br
+    br
+    br
+    .container-fluid
+        .row
+            .col-md-4.col-md-offset-4
+                .panel.panel-default
+                    .panel-heading
+                        h2.panel-title.centre Error 403: Forbidden
+                    .panel-body
+                        if (typeof error !== 'undefined')
+                            p= error
+                        else
+                            p You don't have permission to see the page you're trying to reach.
+                            p Please sign in to application
+                        br
+                        a.btn.btn-primary.btn-block.btn-large(href="/login") Login
+

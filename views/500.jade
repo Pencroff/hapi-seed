@@ -1,0 +1,24 @@
+//- Created by Pencroff on 26.10.2014.
+extends layout
+block content
+    br
+    br
+    br
+    .container-fluid
+        .row
+            .col-md-4.col-md-offset-4
+                .panel.panel-default
+                    .panel-heading
+                        h2.panel-title.centre Error 500: Internal Server Error
+                    .panel-body
+                        if (typeof error !== 'undefined')
+                            p= error
+                        else
+                            p A team of highly trained sea bass is working on this as we speak.
+                                br
+                                | If the problem persists, please&nbsp
+                                a(href="mailto://you@your-domain.com") contact the system administrator
+                                | &nbspand inform them of the time that the error occured, and anything you might have done that may have caused the error.
+                        br
+                        a.btn.btn-primary.btn-block.btn-large(href="/app") Return to application
+

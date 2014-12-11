@@ -20,10 +20,16 @@
   "bugs": {
     "url": "https://github.com/Pencroff/hapi-seed/issues"
   },
-  "homepage": "https://github.com/Pencroff/hapi-seed",
-  "dependencies": {
+  "old": {
     "hapi": "~7.5.2",
     "good-console": "^2.1.0",
     "good": "^4.0.2"
+  },
+  "homepage": "https://github.com/Pencroff/hapi-seed",
+  "dependencies": {
+    "good": "~5.0.0",
+    "good-console": "~3.0.1",
+    "hapi": "~8.0.0",
+    "jade": "^1.8.1"
   }
 }
