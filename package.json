@@ -4,7 +4,7 @@
   "description": "Seed project for hapi with mongo",
   "main": "start.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --bail --ui bdd --reporter progress -- test/*-test.js"
   },
   "repository": {
     "type": "git",
@@ -20,16 +20,18 @@
   "bugs": {
     "url": "https://github.com/Pencroff/hapi-seed/issues"
   },
-  "old": {
-    "hapi": "~7.5.2",
-    "good-console": "^2.1.0",
-    "good": "^4.0.2"
-  },
   "homepage": "https://github.com/Pencroff/hapi-seed",
   "dependencies": {
+    "boom": "^2.6.1",
     "good": "~5.0.0",
     "good-console": "~3.0.1",
     "hapi": "~8.0.0",
     "jade": "^1.8.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "gulp": "^3.8.10",
+    "gulp-mocha": "^2.0.0",
+    "gulp-util": "^3.0.1"
   }
 }

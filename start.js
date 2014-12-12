@@ -5,7 +5,9 @@
 /*global __dirname: true, require: true*/
 
 var Path = require('path');
+var Boom = require('boom');
 var Hapi = require('hapi');
+var hapiConfig = require('./plugins/hapi-config');
 var server = new Hapi.Server();
 
 server.views({
@@ -84,8 +86,9 @@ web.route({
     path: '/{path*}',
     handler: function (request, reply) {
         var context = {
-            error: 'Some error text!'
-        };
+                error: 'Page not found',
+                details: 'Path: ' + request.path
+            };
         return reply.view('404', context);
     }
 });
@@ -93,6 +96,24 @@ web.route({
 //server.start(function () {
 //    console.log('Server running at:', server.info.uri);
 //});
+
+
+console.log('Server plugins');
+console.log(__dirname);
+
+server.register({
+        register: hapiConfig,
+        options: {
+            someFlag: true
+        }
+    }, function (err) {
+        if (err) {
+            server.log('error', err);
+            throw err; // something bad happened loading the plugin
+        }
+    }
+);
+
 
 server.register({
     register: require('good'),

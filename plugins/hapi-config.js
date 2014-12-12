@@ -4,7 +4,14 @@
 /*global exports: true*/
 
 
+configManager = require('./config-manager.js');
+
 exports.register = function (server, options, next) {
+    if (options && options.confPath) {
+        configManager.setup(options.confPath);
+    }
+    server.expose(configManager);
+
     next();
 };
 
