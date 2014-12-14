@@ -4,7 +4,6 @@
 var config = {};
 
 config.web = {
-
 };
 
 module.exports = config;

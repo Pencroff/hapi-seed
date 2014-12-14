@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/Pencroff/hapi-seed",
   "dependencies": {
+    "bluebird": "^2.3.11",
     "boom": "^2.6.1",
     "good": "~5.0.0",
     "good-console": "~3.0.1",
     "hapi": "~8.0.0",
+    "hapi-kea-config": "^0.1.0",
     "jade": "^1.8.1",
     "kea-config": "^0.1.1"
   },
@@ -33,6 +35,8 @@
     "chai": "^1.10.0",
     "gulp": "^3.8.10",
     "gulp-mocha": "^2.0.0",
-    "gulp-util": "^3.0.1"
+    "gulp-util": "^3.0.1",
+    "sinon": "^1.12.2",
+    "sinon-chai": "^2.6.0"
   }
 }

@@ -11,15 +11,21 @@ Goal
 * [+] Static files
 * [+] Jade or similar template engine
 * [-] Tests for app
-* [-] Config files for development and production environment
+* [+] Config files for development and production environment
 * [-] Logging like winston
 * [-] File maipulation (upload, download)
-* [-] Chief and web sections with custom port for each
+* [-] Admin and web sections with custom port for each
 * [-] Auth and unauth sessions
 * [-] Roles and memberships
 * [-] Common DAL based on Unit of work pattern
 * [-] Mailer
-* [-] Monitoing for web section
+
+Road map
+========
+
+* Auto registration all plugins base on configuration
+* Monitoring application timings and statements
+
 
 Licence
 =======

@@ -4,6 +4,13 @@
 /*global module: true, process: true*/
 var config = {};
 config.web = {
+    sections: {
+        chief: {
 
+        },
+        web: {
+
+        }
+    }
 };
 module.exports = config;

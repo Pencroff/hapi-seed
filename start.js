@@ -7,8 +7,8 @@
 var Path = require('path');
 var Boom = require('boom');
 var Hapi = require('hapi');
-var hapiConfig = require('./plugins/hapi-config');
 var server = new Hapi.Server();
+var pluginRegistration = require('./plugins');
 
 server.views({
     engines: {
@@ -37,7 +37,7 @@ web.route({
     }
 });
 
-web.route({
+admin.route({
     method: 'GET',
     path: '/login',
     handler: function (request, reply) {
@@ -69,7 +69,7 @@ admin.route({
     }
 });
 
-web.route({
+server.route({
     method: 'GET',
     path: '/assets/{param*}',
     handler: {
@@ -93,43 +93,14 @@ web.route({
     }
 });
 
-//server.start(function () {
-//    console.log('Server running at:', server.info.uri);
-//});
-
-
-console.log('Server plugins');
-console.log(__dirname);
-
-server.register({
-        register: hapiConfig,
-        options: {
-            someFlag: true
-        }
-    }, function (err) {
-        if (err) {
-            server.log('error', err);
-            throw err; // something bad happened loading the plugin
-        }
-    }
-);
-
-
-server.register({
-    register: require('good'),
-    options: {
-        opsInterval: 1000,
-        reporters: [{
-            reporter: require('good-console'),
-            args:[{ log: '*', response: '*' }]
-        }]
-    }
-}, function (err) {
+pluginRegistration(server, function (err) {
     if (err) {
-        throw err; // something bad happened loading the plugin
+        throw err; // something bad happened loading the plugins
     }
 
     server.start(function () {
         server.log('info', 'Server running at: ' + server.info.uri);
     });
 });
+
+
