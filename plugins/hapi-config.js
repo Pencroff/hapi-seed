@@ -4,7 +4,7 @@
 /*global exports: true*/
 
 
-configManager = require('./config-manager.js');
+configManager = configManager = require('kea-config');
 
 exports.register = function (server, options, next) {
     if (options && options.confPath) {

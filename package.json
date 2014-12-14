@@ -26,7 +26,8 @@
     "good": "~5.0.0",
     "good-console": "~3.0.1",
     "hapi": "~8.0.0",
-    "jade": "^1.8.1"
+    "jade": "^1.8.1",
+    "kea-config": "^0.1.1"
   },
   "devDependencies": {
     "chai": "^1.10.0",

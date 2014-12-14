@@ -7,7 +7,7 @@ var path = require('path'),
     root = __dirname,
     Hapi = require('hapi'),
     hapiConfig = require('../plugins/hapi-config.js'),
-    configManager = require('../plugins/config-manager.js');
+    configManager = require('kea-config');
 
 describe('Hapi Config', function () {
     var server;
