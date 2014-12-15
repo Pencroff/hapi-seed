@@ -7,15 +7,23 @@ var path = require('path'),
     root = __dirname,
     Promise = require("bluebird");
 
-module.exports = function (server, callback) {
-    var i = 0,
+/**
+ *
+ * @param {object} server - hapi server
+ * @param {object|function} options - options or callback
+ * @param callback - callback if don't use Promise syntax
+ * @returns {Promise} - not work
+ */
+module.exports = function (server, options, callback) {
+    var promise = new Promise(function () { }),
+        i = 0,
         pluginNumber = 2,
         synkCall = function (err) {
             if (err) {
                 callback(err);
             }
             i += 1;
-            if (i >= pluginNumber) {
+            if (i >= pluginNumber && typeof callback === 'function') {
                 callback();
             }
         };
@@ -36,4 +44,6 @@ module.exports = function (server, callback) {
             }]
         }
     }, synkCall);
+
+    return promise;
 };

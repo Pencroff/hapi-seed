@@ -10,7 +10,7 @@ Goal
 * [+] Error pages 404 + (403, 500) 
 * [+] Static files
 * [+] Jade or similar template engine
-* [-] Tests for app
+* [+] Tests for app
 * [+] Config files for development and production environment
 * [-] Logging like winston
 * [-] File maipulation (upload, download)
@@ -24,6 +24,7 @@ Road map
 ========
 
 * Auto registration all plugins base on configuration
+* Promise / callback syntax in plugin registration
 * Monitoring application timings and statements
 
 

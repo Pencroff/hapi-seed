@@ -14,22 +14,23 @@ var Hapi = require('hapi');
 
 describe('Registration plugins', function () {
     var pluginManager = require('../plugins'),
-        server, sandbox, exposeStub;
+        server, mock, sandbox, registerStub;
     beforeEach(function(done){
         server = new Hapi.Server();
-        //sandbox = sinon.sandbox.create();
-        //exposeStub = sandbox.stub(server, 'register');
+        mock = sinon.mock(server);
         done();
     });
     afterEach(function(){
-        //sandbox.restore();
+        mock.restore();
     });
 
     it('should be function returned promise', function (done) {
-        //var result = pluginManager();
-        //expect(pluginManager).to.be.a('function');
-        //expect(result.then).to.be.a('function');
-        //expect(result.catch).to.be.a('function');
+        mock.expects('register').atLeast(0);
+        var result = pluginManager(server);
+        expect(pluginManager).to.be.a('function');
+        expect(result.then).to.be.a('function');
+        expect(result.catch).to.be.a('function');
+        mock.verify();
         done();
     });
 
