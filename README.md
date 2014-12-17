@@ -12,7 +12,7 @@ Goal
 * [+] Jade or similar template engine
 * [+] Tests for app
 * [+] Config files for development and production environment
-* [-] Logging like winston
+* [+] Logging like winston
 * [-] File maipulation (upload, download)
 * [-] Admin and web sections with custom port for each
 * [-] Auth and unauth sessions

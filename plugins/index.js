@@ -27,6 +27,9 @@ module.exports = function (server, options, callback) {
                 callback();
             }
         };
+    if (!callback && typeof options === 'function') {
+        callback = options;
+    }
     server.register({
             register: require('hapi-kea-config'),
             options: {
@@ -37,10 +40,33 @@ module.exports = function (server, options, callback) {
     server.register({
         register: require('good'),
         options: {
-            opsInterval: 5000,
+            opsInterval: 10000,
             reporters: [{
                 reporter: require('good-console'),
-                args:[{ ops: '*', log: '*', response: '*' }]
+                args:[{ log: '*', response: '*' }, {format: 'YYYY-MM-DD HH:mm:ss.SSS'}]
+            }, {
+                reporter: require('good-mongodb'),
+                args: ['mongodb://localhost:27017/good-mongodb', {
+                    collection: 'ops-log',
+                    events: {
+                        ops: '*'
+                    }
+                }]
+            }, {
+                reporter: require('good-mongodb'),
+                args: ['mongodb://localhost:27017/good-mongodb', {
+                    collection: 'full-log',
+                    events: {
+                        'start': '*',
+                        'stop': '*',
+                        'request': '*',
+                        'request-internal': '*',
+                        'request-error': '*',
+                        'response': '*',
+                        'log': '*',
+                        'error': '*'
+                    }
+                }]
             }]
         }
     }, synkCall);
