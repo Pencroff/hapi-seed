@@ -34,6 +34,15 @@ describe('Registration plugins', function () {
         done();
     });
 
+    it('should use callback once without promise', function (done) {
+        var callback = sinon.spy(),
+            result = pluginManager(server, callback);
+        console.dir(callback);
+        expect(result).to.be.an('undefined');
+        expect(callback).to.have.been.callCount(1);
+        done();
+    });
+
     it('should register plugins from config', function (done) {
         var pluginDir = path.join(root, 'fake-plugins');
             //result = pluginManager(exposeStub, {

@@ -15,7 +15,7 @@ var path = require('path'),
  * @returns {Promise} - not work
  */
 module.exports = function (server, options, callback) {
-    var promise = new Promise(function () { }),
+    var promise,
         i = 0,
         pluginNumber = 2,
         synkCall = function (err) {
@@ -30,12 +30,15 @@ module.exports = function (server, options, callback) {
     if (!callback && typeof options === 'function') {
         callback = options;
     }
+    if (!callback) {
+        promise = new Promise(function () { });
+    }
     server.register({
-            register: require('hapi-kea-config'),
-            options: {
-                confPath: path.join(root, '../config')
-            }
-        }, synkCall);
+        register: require('hapi-kea-config'),
+        options: {
+            confPath: path.join(root, '../config')
+        }
+    }, synkCall);
 
     server.register({
         register: require('good'),
