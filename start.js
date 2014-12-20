@@ -8,7 +8,8 @@ var Path = require('path');
 var Boom = require('boom');
 var Hapi = require('hapi');
 var server = new Hapi.Server();
-var pluginRegistration = require('./plugins');
+var pluginProvider = require('./common/pluginProvider');
+var pluginConfiguration = require('./config/plugins.conf');
 
 server.views({
     engines: {
@@ -93,14 +94,21 @@ web.route({
     }
 });
 
-pluginRegistration(server, function (err) {
-    if (err) {
-        throw err; // something bad happened loading the plugins
-    }
 
-    server.start(function () {
+pluginProvider(server, pluginConfiguration).then(function () {
         server.log('info', 'Server running at: ' + server.info.uri);
+    }).catch(function (reason) {
+        throw reason; // something bad happened loading the plugins
     });
-});
+
+//pluginRegistration(server, function (err) {
+//    if (err) {
+//        throw err; // something bad happened loading the plugins
+//    }
+//
+//    server.start(function () {
+//        server.log('info', 'Server running at: ' + server.info.uri);
+//    });
+//});
 
 

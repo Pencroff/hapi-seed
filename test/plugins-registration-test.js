@@ -13,46 +13,88 @@ chai.use(sinonChai);
 var Hapi = require('hapi');
 
 describe('Registration plugins', function () {
-    var pluginManager = require('../plugins'),
-        server, mock, sandbox, registerStub;
+    var pluginManager = require('../common/pluginProvider'),
+        config, server;
     beforeEach(function(done){
         server = new Hapi.Server();
-        mock = sinon.mock(server);
+        config = {
+            basePath: root,
+            'hapi-kea-config': {
+                confPath: path.resolve(root, '../config')
+            },
+            '../test/fake-plugins/plugin-A': {
+                optA: 'plugin-A'
+            },
+            '../test/fake-plugins/plugin-B': {
+                optB: 'plugin-B'
+            }
+        };
         done();
     });
     afterEach(function(){
-        mock.restore();
     });
 
-    it('should be function returned promise', function (done) {
-        mock.expects('register').atLeast(0);
+    it('should require server', function (done) {
+        expect(function () {
+            pluginManager();
+        }).to.throw('Plugin manager require server parameter');
+        expect(function () {
+            pluginManager(server);
+        }).to.not.throw();
+        done();
+    });
+
+    it('should be function returned promise if not used callback', function (done) {
         var result = pluginManager(server);
         expect(pluginManager).to.be.a('function');
         expect(result.then).to.be.a('function');
         expect(result.catch).to.be.a('function');
-        mock.verify();
+        done();
+    });
+
+    it('should be function returned promise if not used callback with options', function (done) {
+        var result = pluginManager(server, {});
+        expect(pluginManager).to.be.a('function');
+        expect(result.then).to.be.a('function');
+        expect(result.catch).to.be.a('function');
         done();
     });
 
     it('should use callback once without promise', function (done) {
         var callback = sinon.spy(),
             result = pluginManager(server, callback);
-        console.dir(callback);
-        expect(result).to.be.an('undefined');
-        expect(callback).to.have.been.callCount(1);
-        done();
+        setTimeout(function () {
+            expect(result).to.be.an('undefined');
+            expect(callback).to.have.been.callCount(1);
+            done();
+        }, 10);
     });
 
-    it('should register plugins from config', function (done) {
-        var pluginDir = path.join(root, 'fake-plugins');
-            //result = pluginManager(exposeStub, {
-            //    pluginA: {
-            //        require: path.join(pluginDir, 'plugin-A')
-            //    },
-            //    pluginB: {
-            //        require: path.join(pluginDir, 'plugin-B')
-            //    }
-            //});
-        done();
+    it('should use callback once without promise and with options', function (done) {
+        var callback = sinon.spy(),
+            result = pluginManager(server, {}, callback);
+        setTimeout(function () {
+            expect(result).to.be.an('undefined');
+            expect(callback).to.have.been.callCount(1);
+            done();
+        }, 10);
+    });
+
+    it('should register plugins from config and call callback', function (done) {
+        var result = pluginManager(server, config, function () {
+            expect(server.plugins['hapi-kea-config']).to.be.not.an('undefined');
+            expect(server.plugins['plugin-a']).to.be.not.an('undefined');
+            expect(server.plugins['plugin-b']).to.be.not.an('undefined');
+            done();
+        });
+    });
+
+    it('should register plugins from config with promise', function (done) {
+        var result = pluginManager(server, config).then(function () {
+            expect(server.plugins['hapi-kea-config']).to.be.not.an('undefined');
+            expect(server.plugins['plugin-a']).to.be.not.an('undefined');
+            expect(server.plugins['plugin-b']).to.be.not.an('undefined');
+            done();
+        });
     });
 });
